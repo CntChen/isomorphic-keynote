@@ -1,0 +1,55 @@
+<html>
+<head>
+  <title>基于React的前后端同构</title>
+  <link rel="stylesheet" href="./reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="./reveal.js/css/theme/white.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>基于React的前后端同构</section>
+      <section>
+        <section>一个页面的历史</section>
+        <section>Vertical Slide 2</section>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          ## Page title
+          A paragraph with some text and a [link](http://hakim.se).
+        </script>
+      </section>
+      <section>Q&A</section>
+    </div>
+  </div>
+  <script src="./reveal.js/lib/js/head.min.js"></script>
+  <script src="./reveal.js/js/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true, 
+      dependencies: 
+      [
+        {
+          src: './reveal.js/plugin/markdown/marked.js', 
+          condition: function() { 
+            return !!document.querySelector( '[data-markdown]' ); 
+          }
+        },
+        {
+          src: './reveal.js/plugin/markdown/markdown.js', 
+          condition: function() { 
+            return !!document.querySelector( '[data-markdown]' ); 
+          }
+        },
+        { src: './reveal.js/plugin/highlight/highlight.js',
+        async: true,
+        callback: function() { 
+          hljs.initHighlightingOnLoad(); } 
+        },    
+      ],
+    });
+  </script>
+</body>
+</html>
