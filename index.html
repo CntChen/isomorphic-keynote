@@ -2,8 +2,8 @@
 
 <head>
   <title>基于React的前后端同构</title>
-  <link rel="stylesheet" href="./reveal.js/css/reveal.css">
-  <link rel="stylesheet" href="./reveal.js/css/theme/white.css">
+  <link rel="stylesheet" href="./reveal/css/reveal.css">
+  <link rel="stylesheet" href="./reveal/css/theme/white.css">
   <style>
     .left {
       width: 50%;
@@ -19,7 +19,8 @@
     h2,
     h3,
     h4,
-    h5 h6 {
+    h5,
+    h6 {
       text-transform: none!important;
     }
   </style>
@@ -237,13 +238,13 @@
         </section>
         <section data-markdown>
           <script type="text/template">
-#### 技术栈
-* React              前端框架
-* React-router       路由 
-* Redux              数据流 
-* Koa                Node直出后台
-* Webpck Gulp        工作流
-* JS ES6
+            #### 技术栈
+            * React              前端框架
+            * React-router       路由 
+            * Redux              数据流 
+            * Koa                Node直出后台
+            * Webpck Gulp        工作流
+            * JS ES6
           </script>
         </section>
         <section data-markdown>
@@ -426,8 +427,8 @@ if (process.env.BROWSER) {
       </section>
     </div>
   </div>
-  <script src="./reveal.js/lib/js/head.min.js"></script>
-  <script src="./reveal.js/js/reveal.js"></script>
+  <script src="./reveal/lib/js/head.min.js"></script>
+  <script src="./reveal/js/reveal.js"></script>
   <script>
     Reveal.initialize({
       // Display a presentation progress bar
@@ -437,18 +438,18 @@ if (process.env.BROWSER) {
       dependencies: 
       [
         {
-          src: './reveal.js/plugin/markdown/marked.js', 
+          src: './reveal/plugin/markdown/marked.js', 
           condition: function() { 
             return !!document.querySelector( '[data-markdown]' ); 
           }
         },
         {
-          src: './reveal.js/plugin/markdown/markdown.js', 
+          src: './reveal/plugin/markdown/markdown.js', 
           condition: function() { 
             return !!document.querySelector( '[data-markdown]' ); 
           }
         },
-        { src: './reveal.js/plugin/highlight/highlight.js',
+        { src: './reveal/plugin/highlight/highlight.js',
         async: true,
         callback: function() { 
           hljs.initHighlightingOnLoad(); } 
