@@ -1,24 +1,429 @@
 <html>
+
 <head>
   <title>基于React的前后端同构</title>
   <link rel="stylesheet" href="./reveal.js/css/reveal.css">
   <link rel="stylesheet" href="./reveal.js/css/theme/white.css">
+  <style>
+    .left {
+      width: 50%;
+      float: left;
+    }
+    
+    .right {
+      width: 50%;
+      float: right;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 h6 {
+      text-transform: none!important;
+    }
+  </style>
 </head>
+
 <body>
   <div class="reveal">
     <div class="slides">
-      <section>基于React的前后端同构</section>
-      <section>
-        <section>一个页面的历史</section>
-        <section>Vertical Slide 2</section>
+      <section data-markdown>
+        <script type="text/template">
+          ## 基于React的前后端同构
+          **2016-08-09  [@CntChen](https://github.com/CntChen)**
+        </script>
       </section>
       <section data-markdown>
         <script type="text/template">
-          ## Page title
-          A paragraph with some text and a [link](http://hakim.se).
+          ### 目录
+          * 前端页面历史
+          * 前端框架选择
+          * React同构原理
+          * 技术要点
+          * 实践实例
+          * 下一步工作
         </script>
       </section>
-      <section>Q&A</section>
+      <section>
+        <section data-markdown>
+          <script type="text/template">
+            ### 前端页面历史
+          </script>
+        </section>
+        <section>
+          <h3>web1.0 静态页面</h3>
+          <div class="left">
+            <h4>Back-End</h4>
+            <img height="200" src="./sources/img/html.png">
+          </div>
+          <div class="right">
+            <h4>Front-End</h4>
+            <img height="200" src="./sources/img/html.png">
+          </div>
+        </section>
+        <section>
+          <h3>web1.0 动态页面</h3>
+          <div class="left">
+            <h4>Back-End</h4>
+            <img height="200" src="./sources/img/many data.png">
+          </div>
+          <div class="right">
+            <h4>Front-End</h4>
+            <img height="200" src="./sources/img/html.png">
+          </div>
+        </section>
+        <section>
+          <h3>web1.0 动态页面</h3>
+          <div class="left">
+            <h4>Back-End</h4>
+            <img height="200" src="./sources/img/jsp.png">
+            <img height="200" src="./sources/img/php.png">
+          </div>
+          <div class="right">
+            <h4>Front-End</h4>
+            <img height="200" src="./sources/img/html.png">
+          </div>
+        </section>
+        <section>
+          <h3>代码混杂</h3>
+          <img height="500" src="./sources/img/php html.jpg">
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ### Web 2.0
+            * 前端交互
+            * Ajax
+            * 前后端分离
+          </script>
+        </section>
+        <section>
+          <h3>前后端交互流程</h3>
+          <img height="500" src="./sources/img/ajax request.png">
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ### 前端框架
+            * Web Page ==> Web App
+            * 前端模块化
+            * React / Vue / Angular
+          </script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ### 面临的问题
+            * 首页加载缓慢
+              * js加载和解析
+              * 多个Ajax请求
+            * 缓存无法解决问题
+              * 数据动态性
+            * 现有方案
+              * 占位加载
+          </script>
+        </section>
+        <section>
+          <h3>前后端分离</h3>
+          <img height="500" src="./sources/img/ajax request.png">
+        </section>
+        <section>
+          <h3>进阶方案 -- 数据直出</h3>
+          <img height="500" src="./sources/img/output data.png">
+        </section>
+        <section>
+          <h3>理想方案 -- 服务端直出</h3>
+          <img height="500" src="./sources/img/output html.png">
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ### 服务端直出 -- 问题
+            * 回到jsp / php 动态页面时代
+            * 前后端语言/框架解析
+            * 开发/维护成本 > 直出收益
+          </script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ### （页面）前后端同构
+            * 一份代码，前后端通用
+            * 最小成本解决服务端直出问题
+            * 服务端渲染
+          </script>
+        </section>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+            ### 前端框架选择
+            * React
+              * Virtual Dom 天生优势
+              * 业界有成功实践
+            * Vue@2.0
+              * 在路上
+            * Angular
+              * 不了解
+          </script>
+      </section>
+      <section>
+        <section data-markdown>
+          <script>
+            ### React同构原理
+          </script>
+        </section>
+        <section>
+          <h3>Virtual DOM</h3>
+          <img height="400" src="./sources/img/virtual dom.png">
+          <h4>Virtual DOM是内存中的对象树，用于最化real DOM操作</h4>
+          <h4>服务端没Document,无法直接操作DOM</h4>
+        </section>
+        <section>
+          <h3>服务端渲染为HTML String</h3>
+          <img height="400" src="./sources/img/virtual dom everywhere.png">
+          <h4>HTML String拼接到页面中，返回客户端做DOM构建</h4>
+        </section>
+        <section>
+          <h3>React.render</h3>
+          <h4>React@0.14.1</h4>
+          <img height="400" src="./sources/img/react component life cycle client.png">
+          <h4>React component life cycle</h4>
+        </section>
+        <section>
+          <h3>ReactDOMServer.renderToString</h3>
+          <h4>React@0.14.1</h4>
+          <img height="400" src="./sources/img/react component life cycle server.png">
+          <h4>React component life cycle</h4>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ### DOM 的一致性
+            ```
+            完善的 Compponent 属性及生命周期与客户端的 render 时机是 React 同构的关键。
+            ```
+            * 在前后端渲染相同的 Compponent，将输出一致的 Dom 结构
+            * 服务端上 Component 生命周期只会到 componentWillMount ==> HTML String
+            * 客户端会判断是否可以直接使用或需要重新挂载，重新挂载则发送异步请求
+            * 客户端在 componentDidMount 中添加事件
+          </script>
+        </section>
+        <section>
+          <h3>判断是否需要重新render</h3>
+          <img height="150" src="./sources/img/checksum.png">
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ### DATA 的一致性
+            * 依赖 Redux 实现
+          </script>
+        </section>
+        <section>
+          <h4>Redux</h4>
+          <img height="400" src="./sources/img/redux data flow.png">
+          <h4>Acitons 包括 React component 的异步数据请求</h4>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+            ### DATA 的一致性
+            *两端使使用相同的 initialState
+            * 服务端收集所有模块的异步数据请求Acitons，（异步数据请求封装为Promise）
+            * `Promise.all()` 等待所有异步请求完成
+            * 通过 reduces 得到当前的 store.state
+            * `renderToString`
+            * HTML String & store.state 发送到客户端
+            * 客户端使用已有的store.state，不再fetch data 
+          </script>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h3>技术要点</h3>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+#### 技术栈
+* React              前端框架
+* React-router       路由 
+* Redux              数据流 
+* Koa                Node直出后台
+* Webpck Gulp        工作流
+* JS ES6
+          </script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+#### 项目结构
+```
+.
+├── dist                       // 发布目录
+├── doc                        // 文档
+├── gulpfile.js                // 自动构建任务      
+├── node_modules 
+├── package.json               // 工程描述  
+├── README.md           
+├── src                        // 源码
+├── webpack.config.js          // webpack打包参数 
+└── webpack.config.server.js
+```
+          </script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+#### 源码结构
+```
+.
+├── actions                    // redux actions
+├── config.js                  // koa 服务器配置
+├── index.jsx                  // 客户端入口
+├── initial-state.js           // 前后端共享的redux state
+├── lib                        // 直出辅助lib
+├── pages                      // 页面 / React component
+├── reduces                    // redux reduces
+├── routes.jsx                 // 路由  
+├── server                     // 直出服务器
+└── static                     // 静态资源 
+```
+          </script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+#### 技术要点：React-router
+```
+<Route name="app" component={App} path="/">
+  <IndexRoute component={Order}/>
+  <Route component={Signin} path="signin" />
+  <Route component={Order} path="order" />
+  <Route component={Detail} path="detail" />
+  <Route component={Logistic} path="logistic"/>
+</Route>
+```
+* 最好使用React-router，因为可以在服务器端得到当前路径的**模块依赖**
+* `match` ==> `renderProps.components`
+```
+const matchPromise = new Promise(function(resolve, reject) {
+  match({ routes, location }, (err, redirectLocation, renderProps) => {
+      resolve({err, redirectLocation, renderProps});
+    });
+});
+```
+          </script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+#### 技术要点：数据请求
+* Client在componentWillMount中执行数据请求action
+* 服务端渲染后，Client不会再进入componentWillMount
+```
+  componentWillMount() {
+    console.log('componentWillMount');
+    if(process.env.BROWSER){
+      console.log('fetch when render in browser');
+      this.props.actions.fetchOrdersIfNeeded();
+    }
+  }
+```
+* 服务端渲染，不在componentWillMount执行请求，难以嵌入**回调**
+* 使用类变量标记数据请求action
+```
+class OrderApp extends React.Component {
+  static needs = [
+    orderActions.fetchOrdersIfNeeded
+  ];
+}
+```
+</script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+#### 技术要点：数据请求 Promise
+* 收集所有需要渲染的components数据请求actions
+* dispatch(actions)返回Promise
+* Promise.all()
+* 获取初始数据成功，再renderToString
+```
+const needs = components.reduce( (prev, current) => {
+  return (current.needs || [])
+    .concat(prev);
+  }, []);
+const promises = needs.map(need => dispatch(need(params)));
+return Promise.all(promises);
+```
+</script>
+        </section>
+        <section data-markdown>
+          <script type="text/template">
+#### 技术要点：Redux前后端统一state
+* Server state
+```
+<-script->
+window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}
+<-/script->
+```
+* Client state
+```
+import {initialState_const} from './initial-state';
+const preloadedState = window.__PRELOADED_STATE__;
+const initialState = preloadedState || Object.assign({}, initialState_const);
+```
+</script>
+        </section>
+                <section data-markdown>
+          <script type="text/template">
+#### 技术要点：CSS
+* CSS文件需要抽离
+  * 无样式的HTML会闪烁
+```
+<link rel="stylesheet" type="text/css" href="dist/bundle.css">
+```
+* webpack `require CSS`语法需要屏蔽
+```
+if (process.env.BROWSER) {
+  require('./styles/order-list.less');
+}
+```
+</script>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h3>实践实例</h3>
+        </section>
+        <section>
+          <h3>订单页面</h3>
+          <img height="500" src="./sources/img/order.png">
+          <img height="500" src="./sources/img/logistic.png">
+          <img height="500" src="./sources/img/detail.png">
+        </section>
+        <section>
+          <h3>测试</h3>
+          <div class="left">
+            <h4>Server Render</h4>
+            <img height="400" src="./sources/img/server render true.png">
+          </div>
+          <div class="right">
+            <h4>Client Render</h4>
+            <img height="400" src="./sources/img/server render false.png">
+          </div>
+        </section>
+        <section>
+          <h3>测试结果</h3>
+          <div class="left">
+            <h4>Server Render</h4>
+            <h4>0.6s</h4>
+          </div>
+          <div class="right">
+            <h4>Client Render</h4>
+            <h4>6s</h4>
+          </div>
+        </section>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          ### 下一步工作
+          * 对比其他实现
+          * 文档化
+        </script>
+      </section>
+      <section>
+        <h2>Q&A
+          <h2>
+      </section>
     </div>
   </div>
   <script src="./reveal.js/lib/js/head.min.js"></script>
@@ -50,6 +455,8 @@
         },    
       ],
     });
+    Reveal.configure({ slideNumber: 'c/t' });
   </script>
 </body>
+
 </html>
