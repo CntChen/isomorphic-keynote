@@ -19,7 +19,8 @@
     h2,
     h3,
     h4,
-    h5 h6 {
+    h5,
+    h6 {
       text-transform: none!important;
     }
   </style>
@@ -117,8 +118,6 @@
               * 多个Ajax请求
             * 缓存无法解决问题
               * 数据动态性
-            * 现有方案
-              * 占位加载
           </script>
         </section>
         <section>
@@ -171,17 +170,16 @@
         <section>
           <h3>Virtual DOM</h3>
           <img height="400" src="./sources/img/virtual dom.png">
-          <h4>Virtual DOM是内存中的对象树，用于最化real DOM操作</h4>
+          <h4>Virtual DOM是内存中的对象树，用于最小化Real DOM操作</h4>
           <h4>服务端没Document,无法直接操作DOM</h4>
         </section>
         <section>
           <h3>服务端渲染为HTML String</h3>
           <img height="400" src="./sources/img/virtual dom everywhere.png">
-          <h4>HTML String拼接到页面中，返回客户端做DOM构建</h4>
+          <h4>HTML String拼接到页面中，返回客户端解析为DOM</h4>
         </section>
         <section>
           <h3>React.render</h3>
-          <h4>React@0.14.1</h4>
           <img height="400" src="./sources/img/react component life cycle client.png">
           <h4>React component life cycle</h4>
         </section>
@@ -195,9 +193,9 @@
           <script type="text/template">
             ### DOM 的一致性
             ```
-            完善的 Compponent 属性及生命周期与客户端的 render 时机是 React 同构的关键。
+            完善的 Component 属性及生命周期与客户端的 render 时机是 React 同构的关键。
             ```
-            * 在前后端渲染相同的 Compponent，将输出一致的 Dom 结构
+            * 在前后端渲染相同的 Component，将输出一致的 Dom 结构
             * 服务端上 Component 生命周期只会到 componentWillMount ==> HTML String
             * 客户端会判断是否可以直接使用或需要重新挂载，重新挂载则发送异步请求
             * 客户端在 componentDidMount 中添加事件
@@ -221,7 +219,7 @@
         <section data-markdown>
           <script type="text/template">
             ### DATA 的一致性
-            *两端使使用相同的 initialState
+            * 两端使使用相同的 initialState
             * 服务端收集所有模块的异步数据请求Acitons，（异步数据请求封装为Promise）
             * `Promise.all()` 等待所有异步请求完成
             * 通过 reduces 得到当前的 store.state
@@ -241,7 +239,7 @@
 * React              前端框架
 * React-router       路由 
 * Redux              数据流 
-* Koa                Node直出后台
+* Koa                Node后台直出
 * Webpck Gulp        工作流
 * JS ES6
           </script>
@@ -318,7 +316,7 @@ const matchPromise = new Promise(function(resolve, reject) {
     }
   }
 ```
-* 服务端渲染，不在componentWillMount执行请求，难以嵌入**回调**
+* 服务端渲染，如果在componentWillMount执行请求，难以嵌入**回调**
 * 使用类变量标记数据请求action
 ```
 class OrderApp extends React.Component {
@@ -327,7 +325,7 @@ class OrderApp extends React.Component {
   ];
 }
 ```
-</script>
+          </script>
         </section>
         <section data-markdown>
           <script type="text/template">
@@ -344,7 +342,7 @@ const needs = components.reduce( (prev, current) => {
 const promises = needs.map(need => dispatch(need(params)));
 return Promise.all(promises);
 ```
-</script>
+          </script>
         </section>
         <section data-markdown>
           <script type="text/template">
@@ -361,7 +359,7 @@ import {initialState_const} from './initial-state';
 const preloadedState = window.__PRELOADED_STATE__;
 const initialState = preloadedState || Object.assign({}, initialState_const);
 ```
-</script>
+         </script>
         </section>
                 <section data-markdown>
           <script type="text/template">
@@ -377,7 +375,7 @@ if (process.env.BROWSER) {
   require('./styles/order-list.less');
 }
 ```
-</script>
+         </script>
         </section>
       </section>
       <section>
@@ -421,8 +419,7 @@ if (process.env.BROWSER) {
         </script>
       </section>
       <section>
-        <h2>Q&A
-          <h2>
+        <h2>Q&A</h2>
       </section>
     </div>
   </div>
